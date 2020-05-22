@@ -42,12 +42,22 @@ jobs:
       # Install node.js environment
       - uses: actions/setup-node@v2-beta
         with:
+          always-auth: true
           node-version: 12.x
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@flo-sch'
+      # Authenticate NPM registry
+      - name: Authenticate NPM registry
+        run: |
+          npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+          npm config set @flo-sch:registry https://registry.npmjs.org
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       # Install dependencies
       - name: Install
         run: yarn install
       # Build packages
-      - name: Install
+      - name: Build
         run: yarn run build
       # Create a control PR with changeset
       - name: Create Release Pull-Request
