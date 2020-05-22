@@ -1,0 +1,61 @@
+name: Canary release
+
+on:
+  push:
+    branches:
+      - next
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ['ubuntu-latest', 'windows-latest']
+        node-version: [
+          12.x, # current LTS
+          14.x # next LTS
+        ]
+    steps:
+      # Checkout git branch
+      - uses: actions/checkout@master
+      # Install node.js environment
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: ${{ matrix.node }}
+      # Install dependencies
+      - name: Install
+        run: yarn install
+      # Run all tests
+      - name: Test
+        run: yarn run test
+
+  # Canary release with tag "next"
+  release:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout git branch
+      - uses: actions/checkout@master
+        with:
+          # Fetch the entire history
+          fetch-depth: 0
+      # Install node.js environment
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: 12.x
+      # Install dependencies
+      - name: Install
+        run: yarn install
+      # Build packages
+      - name: Install
+        run: yarn run build
+      # Create a control PR with changeset
+      - name: Create Release Pull-Request
+        id: changesets
+        uses: changesets/action@master
+        with:
+          commit: "chore(release): create changesets"
+          publish: yarn lerna publish from-package --canary --preid next --pre-dist-tag next --yes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
