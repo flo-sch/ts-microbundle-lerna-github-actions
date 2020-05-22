@@ -19,6 +19,9 @@
     "url": "https://github.com/flo-sch/ts-microbundle-lerna-github-actions.git",
     "directory": "packages/foo"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "dist"
   ],
