@@ -39,10 +39,14 @@ jobs:
       # Install node.js environment
       - uses: actions/setup-node@v2-beta
         with:
+          always-auth: true
           node-version: 12.x
+          registry-url: https://registry.npmjs.org
       # Install dependencies
       - name: Install
         run: yarn install
       # Simulate lerna version
       - name: Simulate release version
         run: yarn lerna publish from-package --no-git-tag-version --no-push --allow-branch '**/*' --yes
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

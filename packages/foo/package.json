@@ -1,0 +1,39 @@
+{
+  "name": "@flo-sch/foo",
+  "version": "0.0.0-development",
+  "description": "Just a test",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "umd:main": "dist/flosch-bar.umd.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "author": {
+    "name": "Florent Schildknecht",
+    "email": "florent.schildknecht@gmail.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/flo-sch/ts-microbundle-lerna-github-actions/packages/foo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flo-sch/ts-microbundle-lerna-github-actions.git",
+    "directory": "packages/foo"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "microbundle --no-compress --jsx React.createElement --tsconfig tsconfig.json",
+    "dev": "microbundle --watch --no-compress --jsx React.createElement --tsconfig tsconfig.json",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.3",
+    "jest": "^26.0.1",
+    "jest-junit": "^10.0.0",
+    "ts-jest": "^26.0.0"
+  }
+}
