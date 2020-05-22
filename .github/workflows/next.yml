@@ -1,9 +1,13 @@
-name: Test
+name: Canary release
 
-on: pull_request
+on:
+  push:
+    branches:
+      - next
 
 jobs:
   test:
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: ['ubuntu-latest', 'windows-latest']
@@ -11,7 +15,6 @@ jobs:
           12.x, # current LTS
           14.x # next LTS
         ]
-    runs-on: ${{ matrix.os }}
     steps:
       # Checkout git branch
       - uses: actions/checkout@master
@@ -26,8 +29,8 @@ jobs:
       - name: Test
         run: yarn run test
 
-  # Simulate version release
-  simulate:
+  # Canary release with tag "next"
+  release:
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -43,6 +46,16 @@ jobs:
       # Install dependencies
       - name: Install
         run: yarn install
-      # Simulate lerna version
-      - name: Simulate release version
-        run: yarn lerna publish from-package --no-git-tag-version --no-push --allow-branch '**/*' --yes
+      # Build packages
+      - name: Install
+        run: yarn run build
+      # Create a control PR with changeset
+      - name: Create Release Pull-Request
+        id: changesets
+        uses: changesets/action@master
+        with:
+          commit: "chore(release): create changesets"
+          publish: yarn lerna publish from-package --canary --preid next --pre-dist-tag next --yes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

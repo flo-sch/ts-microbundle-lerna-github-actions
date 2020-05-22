@@ -1,0 +1,19 @@
+{
+  "name": "@flo-sch/ts-microbundle-lerna-github-actions",
+  "version": "0.0.0-development",
+  "description": "just a test",
+  "main": "index.js",
+  "author": "Florent Schildknecht <florent.schildknecht@humblebee.se>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "lerna run --stream build",
+    "postinstall": "lerna bootstrap",
+    "test": "lerna run --stream test"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.7.2",
+    "lerna": "^3.21.0",
+    "microbundle": "^0.12.0"
+  }
+}
