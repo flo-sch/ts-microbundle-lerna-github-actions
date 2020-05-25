@@ -59,8 +59,8 @@ jobs:
       # Build packages
       - name: Build
         run: yarn run build
-      # Create a control PR with changeset
-      - name: Create Release Pull-Request
+      # Publish next tag
+      - name: Publish next tag
         id: changesets
         uses: changesets/action@master
         with:
