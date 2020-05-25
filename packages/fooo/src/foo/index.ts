@@ -1,1 +1,1 @@
-export const foo = (message: string): string => `foo ${message}.`;
+export const foo = (message: string): string => `foo ${message}`;
