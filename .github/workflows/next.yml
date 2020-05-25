@@ -61,11 +61,4 @@ jobs:
         run: yarn run build
       # Publish next tag
       - name: Publish next tag
-        id: changesets
-        uses: changesets/action@master
-        with:
-          commit: "chore(release): create changesets"
-          publish: yarn lerna publish from-git --canary --preid next --pre-dist-tag next --yes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: yarn lerna publish --canary --preid next --pre-dist-tag next --yes
