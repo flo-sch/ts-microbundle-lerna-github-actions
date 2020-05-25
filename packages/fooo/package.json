@@ -1,5 +1,5 @@
 {
-  "name": "@flo-sch/foo",
+  "name": "@flo-sch/fooo",
   "version": "0.0.0-development",
   "description": "Just a test",
   "source": "src/index.ts",
@@ -13,11 +13,11 @@
     "email": "florent.schildknecht@gmail.com"
   },
   "license": "MIT",
-  "homepage": "https://github.com/flo-sch/ts-microbundle-lerna-github-actions/packages/foo",
+  "homepage": "https://github.com/flo-sch/ts-microbundle-lerna-github-actions/packages/fooo",
   "repository": {
     "type": "git",
     "url": "https://github.com/flo-sch/ts-microbundle-lerna-github-actions.git",
-    "directory": "packages/foo"
+    "directory": "packages/fooo"
   },
   "publishConfig": {
     "access": "public",
