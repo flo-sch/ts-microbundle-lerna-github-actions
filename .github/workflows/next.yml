@@ -45,7 +45,6 @@ jobs:
           always-auth: true
           node-version: 12.x
           registry-url: 'https://registry.npmjs.org'
-          scope: '@flo-sch'
       # Authenticate NPM registry
       - name: Authenticate NPM registry
         run: |
@@ -59,6 +58,9 @@ jobs:
       # Build packages
       - name: Build
         run: yarn run build
-      # Publish next tag
+      # Publish with "next" tag
+      # This will create a git tag on the repository, and publish a new alpha version tagged as "next" on NPM
       - name: Publish next tag
-        run: yarn lerna publish --canary --preid next --pre-dist-tag next --yes
+        run: yarn lerna publish --canary --preid alpha --dist-tag next --create-release github --yes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
