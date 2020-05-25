@@ -65,7 +65,7 @@ jobs:
         uses: changesets/action@master
         with:
           commit: "chore(release): create changesets"
-          publish: yarn lerna publish from-package --canary --preid next --pre-dist-tag next --yes
+          publish: yarn lerna publish from-git --canary --preid next --pre-dist-tag next --yes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
